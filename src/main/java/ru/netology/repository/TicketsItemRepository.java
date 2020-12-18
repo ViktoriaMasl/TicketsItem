@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import ru.netology.domain.TicketsItem;
 import ru.netology.exception.NotFoundException;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -21,8 +24,18 @@ public class TicketsItemRepository {
         items = tmp;
     }
 
-    public TicketsItem[] getAll() {
-        return items;
+    public TicketsItem[] getAll(String from, String to, Comparator<TicketsItem> comparator) {
+        TicketsItem[] result = new TicketsItem[0];
+        for (TicketsItem item : items) {
+            if (item.getFrom().equalsIgnoreCase(from) && item.getTo().equalsIgnoreCase(to)) {
+                TicketsItem[] tmp = new TicketsItem[result.length + 1];
+                System.arraycopy(result, 0, tmp, 0, result.length);
+                tmp[tmp.length - 1] = item;
+                result = tmp;
+            }
+        }
+        Arrays.sort(result, comparator);
+        return result;
     }
 
     TicketsItem findById(int id) {
