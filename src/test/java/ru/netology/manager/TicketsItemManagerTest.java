@@ -27,6 +27,10 @@ class TicketsItemManagerTest {
     @Test
     void shouldFindAllExist() {
         assertArrayEquals(new TicketsItem[]{third, first}, manager.findAll("LED", "GOJ"));
+    }
+    
+    @Test
+    void shouldFindOneExist() {
         assertArrayEquals(new TicketsItem[]{second}, manager.findAll("FRU", "OGZ"));
         assertArrayEquals(new TicketsItem[]{fourth}, manager.findAll("IST", "OTP"));
     }
