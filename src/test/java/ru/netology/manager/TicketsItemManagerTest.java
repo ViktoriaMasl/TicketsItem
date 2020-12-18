@@ -2,6 +2,7 @@ package ru.netology.manager;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ru.netology.domain.TicketsComparatorByTravelTime;
 import ru.netology.domain.TicketsItem;
 import ru.netology.repository.TicketsItemRepository;
 
@@ -26,14 +27,18 @@ class TicketsItemManagerTest {
 
     @Test
     void shouldFindAllExist() {
-        assertArrayEquals(new TicketsItem[]{third, first}, manager.findAll("LED", "GOJ"));
-        assertArrayEquals(new TicketsItem[]{second}, manager.findAll("FRU", "OGZ"));
-        assertArrayEquals(new TicketsItem[]{fourth}, manager.findAll("IST", "OTP"));
+        assertArrayEquals(new TicketsItem[]{third, first}, manager.findAll("LED", "GOJ", new TicketsComparatorByTravelTime()));
+    }
+
+    @Test
+    void shouldFindOneExist() {
+        assertArrayEquals(new TicketsItem[]{second}, manager.findAll("FRU", "OGZ", new TicketsComparatorByTravelTime()));
+        assertArrayEquals(new TicketsItem[]{fourth}, manager.findAll("IST", "OTP", new TicketsComparatorByTravelTime()));
     }
 
     @Test
     void shouldFindAllNotExist() {
-        assertArrayEquals(new TicketsItem[]{}, manager.findAll("FRU", "GOJ"));
+        assertArrayEquals(new TicketsItem[]{}, manager.findAll("FRU", "GOJ", new TicketsComparatorByTravelTime()));
     }
 
 
